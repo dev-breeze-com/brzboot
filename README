@@ -18,9 +18,5 @@ selected entry loads and starts the EFI image.
 If no timeout is configured and no key pressed during bootup, the default
 entry is booted right away.
 
-Further documentation is available in the brzboot wiki at:
-  http://freedesktop.org/wiki/Software/brzboot
-
 Links:
   http://www.freedesktop.org/wiki/Specifications/BootLoaderSpec
-  http://www.freedesktop.org/software/systemd/man/kernel-install.html

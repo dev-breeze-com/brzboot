@@ -31,14 +31,6 @@ objcopy \
 
 # install entries
 if [ "$MODE" = "legacy" ]; then
-	echo -e "timeout 3\nsplash /EFI/brzboot/splash.bmp\n" > mnt/brzboot/loader.conf
-	echo -e "title Test\nefi /test\n" >> mnt/brzboot/entries.conf
-	echo -e "title Test2\nlinux /test2\noptions option=yes word number=1000 more\n" >> mnt/brzboot/entries.conf
-	echo -e "title Test3\nlinux /test3\n" >> mnt/brzboot/entries.conf
-	echo -e "title Test4\nlinux /test4\n" >> mnt/brzboot/entries.conf
-	echo -e "title Test5\nefi /test5\n" >> mnt/brzboot/entries.conf
-	echo -e "title Test6\nlinux /test6\n" >> mnt/brzboot/entries.conf
-else
 	mkdir -p mnt/loader/entries
 	echo -e "timeout 3\nsplash /EFI/brzboot/splash.bmp\n" > mnt/loader/loader.conf
 	echo -e "title Test\nefi /test\n" > mnt/loader/entries/test.conf
@@ -47,6 +39,14 @@ else
 	echo -e "title Test4\nlinux /test4\n" > mnt/loader/entries/test4.conf
 	echo -e "title Test5\nefi /test5\n" > mnt/loader/entries/test5.conf
 	echo -e "title Test6\nlinux /test6\n" > mnt/loader/entries/test6.conf
+else
+	echo -e "timeout 3\nsplash /EFI/brzboot/splash.bmp\n" > mnt/brzboot/loader.conf
+	echo -e "title Test\nefi /test\n" >> mnt/brzboot/entries.conf
+	echo -e "title Test2\nlinux /test2\noptions option=yes word number=1000 more\n" >> mnt/brzboot/entries.conf
+	echo -e "title Test3\nlinux /test3\n" >> mnt/brzboot/entries.conf
+	echo -e "title Test4\nlinux /test4\n" >> mnt/brzboot/entries.conf
+	echo -e "title Test5\nefi /test5\n" >> mnt/brzboot/entries.conf
+	echo -e "title Test6\nlinux /test6\n" >> mnt/brzboot/entries.conf
 fi
 
 sync

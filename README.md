@@ -13,8 +13,9 @@ README
 INTRODUCTION
 ============
 
-brzboot is derived from gummiboot. It executes EFI images. The default entry
-is selected by a configured pattern (glob) or an on-screen menu.  
+brzboot is derived from gummiboot. It executes EFI images.  
+The default entry is selected by a configured pattern (glob)  
+or an on-screen menu.  
 
 brzboot operates on the EFI System Partition (ESP) only. Configuration file   
 fragments, kernels, initrds, other EFI images need to reside on the ESP.   
@@ -74,5 +75,7 @@ REPOSITORY
 LINKS
 =====
 
+  http://freedesktop.org/wiki/Software/gummiboot  
   http://www.freedesktop.org/wiki/Specifications/BootLoaderSpec  
+  http://www.freedesktop.org/software/systemd/man/kernel-install.html
 

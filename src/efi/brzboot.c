@@ -1355,46 +1355,46 @@ static VOID config_load(Config *config, EFI_HANDLE *device, EFI_FILE *root_dir, 
         config_entry_add_from_file(config, device, NULL, content, loaded_image_path);
     FreePool(content);
 
-    if (config->entry_count < 1) {
-        err = uefi_call_wrapper(root_dir->Open, 5, root_dir, &entries_dir, L"\\loader\\entries", EFI_FILE_MODE_READ, 0ULL);
+    /*if (config->entry_count < 1) {*/
+	err = uefi_call_wrapper(root_dir->Open, 5, root_dir, &entries_dir, L"\\loader\\entries", EFI_FILE_MODE_READ, 0ULL);
 
-        if (!EFI_ERROR(err)) {
-            for (;;) {
-                CHAR16 buf[256];
-                UINTN bufsize;
-                EFI_FILE_INFO *f;
-                CHAR8 *content = NULL;
-                UINTN len;
+	if (!EFI_ERROR(err)) {
+		for (;;) {
+			CHAR16 buf[256];
+			UINTN bufsize;
+			EFI_FILE_INFO *f;
+			CHAR8 *content = NULL;
+			UINTN len;
 
-                bufsize = sizeof(buf);
-                err = uefi_call_wrapper(entries_dir->Read, 3, entries_dir, &bufsize, buf);
-                if (bufsize == 0 || EFI_ERROR(err))
-                    break;
+			bufsize = sizeof(buf);
+			err = uefi_call_wrapper(entries_dir->Read, 3, entries_dir, &bufsize, buf);
+			if (bufsize == 0 || EFI_ERROR(err))
+				break;
 
-                f = (EFI_FILE_INFO *) buf;
-                if (f->FileName[0] == '.')
-                    continue;
+			f = (EFI_FILE_INFO *) buf;
+			if (f->FileName[0] == '.')
+				continue;
 
-                if (f->Attribute & EFI_FILE_DIRECTORY)
-                    continue;
+			if (f->Attribute & EFI_FILE_DIRECTORY)
+				continue;
 
-                len = StrLen(f->FileName);
-                if (len < 6)
-                    continue;
+			len = StrLen(f->FileName);
+			if (len < 6)
+				continue;
 
-                if (StriCmp(f->FileName + len - 5, L".conf") != 0)
-                    continue;
+			if (StriCmp(f->FileName + len - 5, L".conf") != 0)
+				continue;
 
-                len = file_read(entries_dir, f->FileName, 0, 0, &content);
-                if (len > 0)
-                    config_entry_add_from_file(config, device, f->FileName, content, loaded_image_path);
+			len = file_read(entries_dir, f->FileName, 0, 0, &content);
+			if (len > 0)
+				config_entry_add_from_file(config, device, f->FileName, content, loaded_image_path);
 
-                FreePool(content);
-			}
+			FreePool(content);
 		}
+	}
 
-        uefi_call_wrapper(entries_dir->Close, 1, entries_dir);
-    }
+	uefi_call_wrapper(entries_dir->Close, 1, entries_dir);
+    /*}*/
 
     /* sort entries after version number */
     for (i = 1; i < config->entry_count; i++) {
@@ -1698,8 +1698,7 @@ static VOID config_entry_add_osx(Config *config) {
             root = LibOpenRoot(handles[i]);
             if (!root)
                 continue;
-            found = config_entry_add_loader_auto(config, handles[i], root, NULL, L"auto-osx", 'a', L"OS X",
-                                                 L"\\System\\Library\\CoreServices\\boot.efi");
+            found = config_entry_add_loader_auto(config, handles[i], root, NULL, L"auto-osx", 'a', L"OS X", L"\\System\\Library\\CoreServices\\boot.efi");
             uefi_call_wrapper(root->Close, 1, root);
             if (found)
                 break;

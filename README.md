@@ -62,7 +62,7 @@ The Breeze::OS website: http://www.breezeos.com
 ORIGINAL AUTHORS
 ================
 
-Kay Sievers (key@vrfy.org)
+Karel Zak <kzak@redhat.com>
 
 
 REPOSITORY
